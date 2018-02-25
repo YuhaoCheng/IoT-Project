@@ -29,11 +29,11 @@ def sendData(data, way='WIFI', ip='127.0.0.1'):
 def sendWarning(type,way='WIFI',ip='127.0.0.1'):
     message = 'Error in sending the Warning message'
     if type == 1:
-        message = 'Temperature is changed so large'
+        message = 'W,Temperature is changed so large,1,date:'
     if type == 2:
-        message = 'Humidity is changed so large'
+        message = 'W,Humidity is changed so large,1,date:'
     if type == 3:
-        message = 'Light is changed so large'
+        message = 'W,Light is changed so large,1,date:'
 
     if way == 'WIFI':
         print('send the warning message using WiFi')
