@@ -1,18 +1,20 @@
 import socket
+import json
 from network import LoRa
 def sendData(data, way='WIFI', ip='127.0.0.1'):
-    temp = ""
-    keys = data.keys()
-    for key in keys:
-        line = data.get(key)
-        temp = temp + key
-        for item in line:
-            temp = temp + ',' + str(item)
-        temp = temp + ':'
+    # temp = ""
+    # keys = data.keys()
+    # for key in keys:
+    #     line = data.get(key)
+    #     temp = temp + key
+    #     for item in line:
+    #         temp = temp + ',' + str(item)
+    #     temp = temp + ':'
+    temp = json.dumps(data)
     print(temp)
     if way=='WIFI':
         print('send the data using WiFi')
-        ip_port = (ip, 8080)
+        ip_port = (ip, 8090)
         web = socket.socket()
         web.connect(ip_port)
         web.sendall(bytes(temp, 'utf8'))
@@ -29,15 +31,15 @@ def sendData(data, way='WIFI', ip='127.0.0.1'):
 def sendWarning(type,way='WIFI',ip='127.0.0.1'):
     message = 'Error in sending the Warning message'
     if type == 1:
-        message = 'W,Temperature is changed so large,1,date:'
+        message = '{"DeviceID":"1","Messagetype":"warning","attribute":"Temperature","Message":"Temperature is changed so large"}'
     if type == 2:
-        message = 'W,Humidity is changed so large,1,date:'
+        message = '{"DeviceID":"1","Messagetype":"warning","attribute":"Humidity","Message":"Humidity is changed so large"}'
     if type == 3:
-        message = 'W,Light is changed so large,1,date:'
+        message = '{"DeviceID":"1","Messagetype":"warning","attribute":"Light","Message":"Light is changed so large"}'
 
     if way == 'WIFI':
         print('send the warning message using WiFi')
-        ip_port = (ip, 8080)
+        ip_port = (ip, 8090)
         web = socket.socket()
         web.connect(ip_port)
         web.sendall(bytes(message, 'utf8'))
@@ -52,7 +54,6 @@ def sendWarning(type,way='WIFI',ip='127.0.0.1'):
         s.setblocking(False)
         s.send(message)
         s.close()
-
 if __name__ == '__main__':
     databuf = [10,20,30]
     databuf2 = [11,21,31]
