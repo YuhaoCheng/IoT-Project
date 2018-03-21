@@ -48,9 +48,10 @@ if __name__ == '__main__':
     global temperature
     global humidity
     global light
-    databuf = [0,0,0]  # if server receives [0,0,0], meaning that the program not works well
-    buf = {'1': databuf}  # in this prototype, we assume the location sequence number is 1
+    # databuf = [0,0,0]  # if server receives [0,0,0], meaning that the program not works well
+    # buf = {'1': databuf}  # in this prototype, we assume the location sequence number is 1
                           # and we also assume that we just send one data
+    buf = {'Messagetype':'data','DeviceID':'1','Temperature':0, 'Humidity':0, 'Light':0} # use the dict to store the whole data
     changebuf = [0,0,0]
     changes = [0,0,0]
     a = 0 # jude whether it is the first time to transmit the data
@@ -60,9 +61,12 @@ if __name__ == '__main__':
         i =0 # index of the changes[]
         readTH('G14')
         readLight()
-        databuf[0] = temperature
-        databuf[1] = humidity
-        databuf[2] = light
+        # databuf[0]= temperature
+        # databuf[1] = humidity
+        # databuf[2] = light
+        buf['Temperature'] = temperature
+        buf['Humidity'] = humidity
+        buf['Light'] = light
         util.sendData(buf,COMM_MODE,CONFIG.SERVER_ADDR)
         print('successfully send the data')
         time.sleep(5)
