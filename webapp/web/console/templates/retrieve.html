@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Retrieve Data</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<ul>
+    {% for data in data_list %}
+    <li>{{data.temperature}}</li>
+    {% endfor %}
+</ul>
+<div>
+    <p>This is the JS result</p>
+    <button type=button id="show">Show the result</button>
+    <p id="result">this is data</p>
+    <script type="text/javascript">
+        $("#show").click(function(){
+            $.getJSON('/ajax_data/',function (ret) {
+               $("#result").append(ret['model'] + '<br>');
+                 for(var i = 0;i <=ret.length;i++){
+                    $("#list").append('' + ret[i]);
+                }
+
+            })
+        });
+    </script>
+</div>
+
+<div>
+    <p id="list">this is the list</p>
+</div>
+<div>
+    <p id="test">this is the test:</p>
+    <script type="text/javascript">
+        var data_json = {{ data_json|safe }};
+        $("#show").click(function () {
+            $("#test").append(data_json.model +'<br>');
+        })
+    </script>
+</div>
+</body>
+</html>
