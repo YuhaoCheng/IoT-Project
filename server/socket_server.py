@@ -37,7 +37,7 @@ def database_handle(data):
         light = data['Light']
         day = data['Day']
         time = data['Time']
-        sql = """insert into data(deviceID,temperature,humidity,light,time,day) values('%s','%d','%d','%d','%s','%s')""" % (deviceID,temperature,humidity,light,time,day)
+        sql = """insert into console_data(deviceID,temperature,humidity,light,time,day) values('%s','%d','%d','%d','%s','%s')""" % (deviceID,temperature,humidity,light,time,day)
         try:
             cursor.execute(sql)
             db.commit()
@@ -51,7 +51,7 @@ def database_handle(data):
         deviceID = data['DeviceID']
         day = data['Day']
         time = data['Time']
-        sql = """insert into warning(time,day,attribute,message,deviceID) values('%s','%s','%s','%s','%s')""" % (time, day, attribute, message, deviceID)
+        sql = """insert into console_warning(time,day,attribute,message,deviceID) values('%s','%s','%s','%s','%s')""" % (time, day, attribute, message, deviceID)
         try:
             cursor.execute(sql)
             db.commit()
