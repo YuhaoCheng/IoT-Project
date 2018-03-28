@@ -1,15 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Rovio
-  Date: 2018/3/23
-  Time: 9:53
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
 <head>
-    <base href="<%=request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath()%>/" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
@@ -18,37 +8,77 @@
 <body>
 <div style="text-align: center">
     <ul class="nav nav-pills" style="display:inline-block;float: none;">
-        <li><a href="view/parallax.jsp">Home</a></li>
-        <li><a href="view/retrieve.jsp">Retrieve</a></li>
-        <li><a href="view/analyze.jsp">Analyze</a></li>
-        <li class="active"><a href="view/manage.jsp">Manage</a></li>
-        <li><a href="view/help.jsp">Help</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="retrieve.html">Retrieve</a></li>
+        <li><a href="analyze.html">Analyze</a></li>
+        <li class="active"><a href="manage_login.html">Manage</a></li>
+        <li><a href="help.html">Help</a></li>
     </ul>
 </div>
 
 <div>
-    <section id="first">
-        <div>
-            <p class="h1"> This is the manage page</p>
-        </div>
-    </section>
-    <section id="login">
-        <div class="box">
-            <input id="username" type="text" name="userName" placeholder="Please enter the ManagerID">
-        </div>
-        <div>
-            <input id="password" type="password" name="password" placeholder="Please enter the password">
-        </div>
-        <div>
-            <button type="button" class="btn btn-primary" onclick="logIn()">Log in</button>
-        </div>
-    </section>
+    <p class="h1 text-primary" align="center">This the MANAGE page</p>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><li class="h1">Add a new node</li></div>
+    <table  id="newDevice" class="table">
+        <thead>
+            <tr>
+                <th>Device Number</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+                <tr>
+                    <th><input id="deviceNumber" type="text"  placeholder="Please enter the device number" class="form-control"></th>
+                    <th><input id="location" type="text" placeholder="Please enter the location" class="form-control"></th>
+                    <th><input id="type" type="text" placeholder="Please enter the type" class="form-control"></th>
+                    <th><input id="description" type="text"  placeholder="Please enter the description" class="form-control"></th>
+                </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary" onclick="add_new_device()">Submit</button>
 </div>
 
-<div id = "test"></div>
+<div class="panel panel-default">
+    <div class="panel-heading"><li class="h1">The list of devices which you want to delete</li></div>
+    <table  id="deviceList" class="table">
+        <thead>
+            <tr>
+                <th>Device Number</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for device in devices %}
+                <tr>
+                    <th>{{ device.0 }}</th>
+                    <th>{{ device.1 }}</th>
+                    <th>{{ device.2 }}</th>
+                    <th>{{ device.3 }}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="panel-body">
+        <div class="input-group">
+            <span class="input-group-addon">The device you want to delete</span>
+            <input id="deleteDeviceNumber" type="text" placeholder="Device Number" class="form-control" style="width: fit-content;">
+            <button class="btn btn-primary col-md-offset-0" type="button" onclick="delete_device()">Delete the device</button>
+        </div>
+    </div>
+
+</div>
+
 
 <script src="https://www.imooc.com/static/lib/jquery/1.9.1/jquery.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="js/manage.js"></script>
+<script src="static/js/manage.js"></script>
 </body>
 </html>

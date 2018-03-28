@@ -1,15 +1,85 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Rovio
-  Date: 2018/3/23
-  Time: 9:53
-  To change this template use File | Settings | File Templates.
---%>
 <html>
 <head>
     <title>Analyze</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+{#    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>#}
+    <script src="static/js/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+{#    <link rel="stylesheet" href="style.css">#}
 </head>
 <body>
 
+<div style="text-align: center">
+    <ul class="nav nav-pills" style="display:inline-block;float: none;">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="retrieve.html">Retrieve</a></li>
+        <li class="active"><a href="analyze.html">Analyze</a></li>
+        <li><a href="manage_login.html">Manage</a></li>
+        <li><a href="help.html">Help</a></li>
+    </ul>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><p class="h1">The List of Device</p></div>
+{#    <div class="panel-body">#}
+{#       <!-- <p>...</p>-->#}
+{#    </div>#}
+    <table  id="deviceList" class="table">
+        <thead>
+            <tr>
+                <th>Device Number</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in devices %}
+                <tr>
+                    <th>{{ device.0 }}</th>
+                    <th>{{ device.1 }}</th>
+                    <th>{{ device.2 }}</th>
+                    <th>{{ device.3 }}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div>
+    <div>
+{#        <p class="h4">Please select the device:<input id="deviceId" type="text" name="deviceId" placeholder="Please select the deviceID"></p>#}
+        <div class="input-group">
+            <span class="input-group-addon" style="width: 150px;">Please enter in the Device Number</span>
+            <input id="deviceId" type="text" name="deviceId"  class="form-control" list="id_list" placeholder="ID">
+            <datalist id="id_list">
+                {% for device in devices %}
+                <option value="{{ device.0 }}">ID:{{ device.0 }}</option>
+                {% endfor %}
+            </datalist>
+        </div>
+{#        <p class="h4">Please select the attribute:<input id="attribute" type="text" name="attribute" placeholder="Please enter what you what ti analyze"></p>#}
+{#        <p>You can choose</p>#}
+{#        <li>Temperature</li>#}
+{#        <li>Humidity</li>#}
+{#        <li>Light</li>#}
+        <div class="input-group">
+            <span class="input-group-addon" style="width: 150px;">Please select the attribute</span>
+            <input id="attribute" type="text" name="attribute"  class="form-control" list="attribute_list" placeholder="Attribute" width="50px">
+            <datalist id="attribute_list">
+                <option value="Temperature">Temperature</option>
+                <option value="Humidity">Humidity</option>
+                <option value="Light">Light</option>
+            </datalist>
+        </div>
+        <button type=button id="show" class="btn btn-primary" onclick="plt()">Show the result</button>
+    </div>
+</div>
+<div class=" panel panel-default">
+        <div class="panel-header"><p class="h2">The Result of Analyzing</p></div>
+{#        <p id="result">this is data</p>#}
+        <div id="figure"></div>
+{#    <p id="data-point">this is the data-point</p>#}
+{#    <p id="x-point">this is the x-point</p>#}
+</div>
+<script src="static/js/analyze.js"></script>
 </body>
 </html>

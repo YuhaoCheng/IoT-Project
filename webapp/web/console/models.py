@@ -23,6 +23,10 @@ class Data(models.Model):
     time = models.CharField(max_length=45)
     day = models.CharField(max_length=45)
 
+    def __str__(self):
+        #temp_str = str(self.temperature)
+        return str(self.id)
+
 class Device(models.Model):
     deviceID = models.CharField(max_length=10)
     location = models.CharField(max_length=45)

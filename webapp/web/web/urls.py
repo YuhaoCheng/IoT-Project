@@ -19,10 +19,17 @@ from console import views as console_views
 
 urlpatterns = [
     url(r'^$',console_views.home,name='home'),
-    #url(r'index.html',console_views.home),
+    url(r'index.html',console_views.home),
     url(r'help.html',console_views.help),
     url(r'^retrieve.html',console_views.retrieve),
     url(r'analyze.html',console_views.analyze),
+    url(r'manage_login.html',console_views.manage_login),
+    url(r'manage.html',console_views.manage),
     url(r'^admin/', admin.site.urls),
-    url(r'^ajax_data/$',console_views.ajax_data, name='ajax_data'),
+    url(r'^ajax_data_retrieve/$',console_views.ajax_data_retrieve, name='ajax_data'),
+    url(r'^ajax_devices/$',console_views.ajax_devices),
+    url(r'^ajax_data_analyze/$',console_views.ajax_data_analyze),
+    url(r'check',console_views.check),
+    url(r'add_new_device/',console_views.add_new_device),
+    url(r'delete_device/',console_views.delete_device),
 ]

@@ -2,41 +2,78 @@
 <head>
     <title>Retrieve Data</title>
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<ul>
-    {% for data in data_list %}
-    <li>{{data.temperature}}</li>
-    {% endfor %}
-</ul>
-<div>
-    <p>This is the JS result</p>
-    <button type=button id="show">Show the result</button>
-    <p id="result">this is data</p>
-    <script type="text/javascript">
-        $("#show").click(function(){
-            $.getJSON('/ajax_data/',function (ret) {
-               $("#result").append(ret['model'] + '<br>');
-                 for(var i = 0;i <=ret.length;i++){
-                    $("#list").append('' + ret[i]);
-                }
+{#<ul>#}
+{#    {% for data in data_list %}#}
+{#    <li>{{data.temperature}}</li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+<div style="text-align: center">
+    <ul class="nav nav-pills" style="display:inline-block;float: none;">
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="retrieve.html">Retrieve</a></li>
+        <li><a href="analyze.html">Analyze</a></li>
+        <li><a href="manage_login.html">Manage</a></li>
+        <li><a href="help.html">Help</a></li>
+    </ul>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading"><p class="h1">The List of Device</p></div>
+{#    <div class="panel-body">#}
+{#       <!-- <p>...</p>-->#}
+{#    </div>#}
+    <table  id="deviceList" class="table">
+        <thead>
+            <tr>
+                <th>Device Number</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for device in devices %}
+                <tr>
+                    <th>{{ device.0 }}</th>
+                    <th>{{ device.1 }}</th>
+                    <th>{{ device.2 }}</th>
+                    <th>{{ device.3 }}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
 
-            })
-        });
-    </script>
+    </table>
+    <div>
+    <div class="panel panel-default">
+        <div class="input-group">
+            <span class="input-group-addon">Please select the Device Number</span>
+            <input id="deviceId" type="text" name="deviceID" placeholder="ID" list="id_list" class="form-control" style="width: fit-content;">
+            <button type=button class="btn btn-primary" id="show" onclick="show()">Show the result</button>
+            <datalist id="id_list">
+                {% for device in devices %}
+                <option value="{{ device.0 }}">ID:{{ device.0 }}</option>
+                {% endfor %}
+            </datalist>
+        </div>
+    </div>
 </div>
 
-<div>
-    <p id="list">this is the list</p>
 </div>
-<div>
-    <p id="test">this is the test:</p>
-    <script type="text/javascript">
-        var data_json = {{ data_json|safe }};
-        $("#show").click(function () {
-            $("#test").append(data_json.model +'<br>');
-        })
-    </script>
+
+<div class="panel panel-default">
+    <div class="panel-heading" id="result_panel">
+       <p class="h1" align="center">The result of retrieving</p>
+    </div>
+{#    <div class="panel-body">#}
+    <table id="information" class="table table-bordered"></table>
+{#    </div>#}
 </div>
+
+
+<script src="static/js/retrieve.js"></script>
 </body>
 </html>

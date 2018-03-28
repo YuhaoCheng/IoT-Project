@@ -1,0 +1,45 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Manage</title>
+</head>
+<body>
+<div style="text-align: center">
+    <ul class="nav nav-pills" style="display:inline-block;float: none;">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="retrieve.html">Retrieve</a></li>
+        <li><a href="analyze.html">Analyze</a></li>
+        <li class="active"><a href="manage_login.html">Manage</a></li>
+        <li><a href="help.html">Help</a></li>
+    </ul>
+</div>
+<div class="container">
+<div class="panel panel-default center">
+    <div class="panel-header" align="center">
+            <p class="h1 text-primary">This is the managing LOG IN page</p>
+    </div>
+    <div class="panel-body">
+        <div class="input-group" align="center">
+            <span class="input-group-addon">ManagerID</span>
+            <input id="username" type="text"  class="form-control" placeholder="Please enter the ManagerID">
+        </div>
+        <div class="input-group" align="center">
+            <span class="input-group-addon">Password</span>
+            <input id="password" type="password" class="form-control" placeholder="Please enter the password">
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" onclick="logIn()" >Log in</button>
+        </div>
+    </div>
+
+</div>
+</div>
+{#<div id = "test"></div>#}
+
+<script src="https://www.imooc.com/static/lib/jquery/1.9.1/jquery.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="static/js/manage.js"></script>
+</body>
+</html>
