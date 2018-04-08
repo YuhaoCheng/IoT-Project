@@ -12,20 +12,26 @@ def handle_receive(conn):
     print('-------------------------')
     json_str = json.loads(result)
     print(json_str,type(json_str))  # the type of json_str is dict
-    conn.send(bytes('ACK', 'utf8'))
+    # conn.send(bytes('ACK', 'utf8'))
     # data_dict = json.dumps(json_str)
     data_dict = json_str
     temp_time = node_time.getTime()
     temp_day = node_time.getDay()
-    data_dict['Day'] = temp_day
-    data_dict['Time'] = temp_time
-    # db = pymysql.connect("localhost","root","123456","")
-    # with open('data.json','a') as f:
-    #     json.dump(json_str,f)
-    database_handler = threading.Thread(target=database_handle, args=(data_dict,))
-    database_handler.start()
-    print(data_dict)
-    conn.close()
+
+    if data_dict['Messagetype']=='request':
+        print('Get the device list from the database')
+        request_handler = threading.Thread(target=handle_request, args=(conn,data_dict,temp_day,temp_time,))
+        request_handler.start()
+    else:
+        data_dict['Day'] = temp_day
+        data_dict['Time'] = temp_time
+        # db = pymysql.connect("localhost","root","123456","")
+        # with open('data.json','a') as f:
+        #     json.dump(json_str,f)
+        database_handler = threading.Thread(target=database_handle, args=(data_dict,))
+        database_handler.start()
+        print(data_dict)
+        conn.close()
 
 def database_handle(data):
     db = pymysql.connect("172.17.118.89", "root", "123456", "pycom")
@@ -60,6 +66,31 @@ def database_handle(data):
         #db.close()
     db.close()
 
+def handle_request(conn,json_obj,day,time):
+    db = pymysql.connect("172.17.118.89", "root", "123456", "pycom")
+    cursor = db.cursor()
+    sql = """select * from console_device"""
+    reply = {"Messagetype":'result'}
+    deviceList = []
+    gatewayId = json_obj['GatewayID']
+    reply["GatewayID"] = gatewayId
+    reply["Day"] = day
+    reply["Time"] = time
+
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        for row in results:
+            deviceList.append(row[1])
+
+        # return deviceList
+    except:
+        print('No the table')
+
+    reply["DeviceList"] = deviceList
+    reply_str = json.dumps(reply)
+    conn.send(bytes(reply_str, 'utf8'))
+    conn.close()
 
 if __name__ == '__main__':
     ip_port = ('172.17.118.89',8090)
