@@ -21,14 +21,19 @@ def sendData(data, way='WIFI', ip='127.0.0.1'):
         web.connect(ip_port)
         web.sendall(bytes(temp, 'utf8'))
         server_reply = web.recv(1024)
-        print(str(server_reply, 'utf8'))
+        reply_str = server_reply.decode('utf8')
+        # print(str(server_reply, 'utf8'))
+        print('The reply from server: ', reply_str)
         web.close()
+        return reply_str
     if way=='LORA':
         print('send the data use LoRa')
-        lora = LoRa(mode=LoRa.LORA)
+        lora = LoRa(mode=LoRa.LORA, region=LoRa.AS923)
         s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
         s.setblocking(False)
         s.send(data)
+        recv_data = s.recv(64)
+        print(recv_data)
         s.close()
 def sendWarning(type,way='WIFI',ip='127.0.0.1'):
     message = 'Error in sending the Warning message'
@@ -60,9 +65,9 @@ def sendWarning(type,way='WIFI',ip='127.0.0.1'):
 def storeData(data):
     sd = SD()
     os.mount(sd, '/sd')
-
     # check the content
     os.listdir('/sd')
+    print(data)
     print('This is the sore data method')
 
 def sendRequest(data, ip='127.0.0.1', port=8090):
@@ -75,6 +80,24 @@ def sendRequest(data, ip='127.0.0.1', port=8090):
     server_reply = web.recv(1024)
 
     return server_reply
+
+def sendLoraData(data):
+    lora = LoRa(mode=LoRa.LORA, rx_iq=True)
+    lora_sock = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
+    lora_sock.setblocking(False)
+    lora_sock.send(data)
+    while True:
+        if lora_sock.recv(128) == b'ACK':
+            return True
+def recviceLoraData():
+    lora = LoRa(mode=LoRa.LORA, rx_iq=True)
+    lora_sock = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
+    lora_sock.setblocking(False)
+    while True:
+        data = lora_sock.recv(128)
+        if data != '':
+            lora_sock.send('ACK')
+            return data
 
 
 
