@@ -51,15 +51,18 @@ if __name__ == '__main__':
     # databuf = [0,0,0]  # if server receives [0,0,0], meaning that the program not works well
     # buf = {'1': databuf}  # in this prototype, we assume the location sequence number is 1
                           # and we also assume that we just send one data
-    buf = {'Messagetype':'data','DeviceID':'1','Temperature':0, 'Humidity':0, 'Light':0} # use the dict to store the whole data
+    buf = {"Messagetype":'data',"DeviceID":'1',"Temperature":0, "Humidity":0, "Light":0} # use the dict to store the whole data
     changebuf = [0,0,0]
     changes = [0,0,0]
     a = 0 # jude whether it is the first time to transmit the data
     SEND_MSG_FLAG=0 # 1 means that the change is large enough to send the data or it meets some situation to send the data
-    COMM_MODE = 'WIFI' # in this prototype we assume that the communication mode is WIFI
+    COMM_MODE = 'LORA' # in this prototype we assume that the communication mode is WIFI
     while True:
         i =0 # index of the changes[]
         readTH('G14')
+        # temperature = 24
+        # humidity = 40
+        # light = 60
         readLight()
         # databuf[0]= temperature
         # databuf[1] = humidity
@@ -136,3 +139,18 @@ if __name__ == '__main__':
             a = 1
         print('the value of changebuf is' + str(changebuf[0]) +','+ str(changebuf[1]) +','+ str(changebuf[2]) +','+ '\n')
     # if the server receive
+
+# from network import LoRa
+# import socket
+# import time
+# import util
+#
+# lora = LoRa(mode=LoRa.LORA, region=LoRa.AS923)
+# s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
+# s.setblocking(True)
+# while True:
+#     s.send('Ping')
+#     print('Send data')
+#     data = s.recv(64)
+#     print('Recv the data', data)
+#     time.sleep(5)
