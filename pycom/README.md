@@ -2,6 +2,7 @@
 
 ## Note
 * The developing process of the project is based on the [Atom editor](https://atom.io/).
+* The method to download the files into your boards is on [Pycom Documnetation](https://docs.pycom.io/).
 
 ## Usage
 1. [gateway](https://github.com/YuhaoCheng/IoT-Project/tree/master/pycom/gateway) needs to be deployed in your Gateway node
