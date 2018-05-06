@@ -15,4 +15,4 @@ This is my final year project of university<br/>
 4. The [test_program](https://github.com/YuhaoCheng/IoT-Project/tree/master/test_program) is tool to help you to debug the program in your Server.
 
 ## Note
-* The [Console](https://github.com/YuhaoCheng/IoT-Project/tree/master/webapp/Console) and [webMonitor](https://github.com/YuhaoCheng/IoT-Project/tree/master/webapp/webMonitor) are discarded. However, if you are familiar with Java, I'm appreciated that you can imporve these web project. 
+* The [webMonitor](https://github.com/YuhaoCheng/IoT-Project/tree/master/webapp/webMonitor) is discarded. However, if you are familiar with Java, I'm appreciated that you can imporve these web project. 
