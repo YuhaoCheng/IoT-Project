@@ -6,4 +6,5 @@
 
 ## Usage
  1. Download the files in $HOME/pycom
- 2. Run the program by: `python socket_server.py`
+ 2. `cd $HOME/pycom`
+ 3. Run the program by: `python socket_server.py`
