@@ -4,14 +4,6 @@ from network import LoRa
 from machine import SD
 import os
 def sendData(data, way='WIFI', ip='127.0.0.1'):
-    # temp = ""
-    # keys = data.keys()
-    # for key in keys:
-    #     line = data.get(key)
-    #     temp = temp + key
-    #     for item in line:
-    #         temp = temp + ',' + str(item)
-    #     temp = temp + ':'
     temp = json.dumps(data)
     print(temp)
     if way=='WIFI':
@@ -22,7 +14,6 @@ def sendData(data, way='WIFI', ip='127.0.0.1'):
         web.sendall(bytes(temp, 'utf8'))
         server_reply = web.recv(1024)
         reply_str = server_reply.decode('utf8')
-        # print(str(server_reply, 'utf8'))
         print('The reply from server: ', reply_str)
         web.close()
         return reply_str
@@ -98,10 +89,6 @@ def recviceLoraData():
         if data != '':
             lora_sock.send('ACK')
             return data
-
-
-
-
 
 
 if __name__ == '__main__':

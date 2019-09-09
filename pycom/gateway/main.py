@@ -24,56 +24,6 @@ Work Flow:
 
 """
 
-# import json
-# # import threading
-# import _thread
-# import socket
-# import util
-# import time
-# from network import LoRa
-#
-# def handle_save(buf, file_name):
-#     print("The method to save the data")
-#
-#
-#
-# if __name__=='__main__':
-#     print('This is the gateway node!')
-#     # lora = LoRa(mode=LoRa.LORA, rx_iq=True)
-#     COUNT = 0 # To record the number of the message
-#     buf = {} # To record the data temporally
-#     sn = 1 # To count the file
-#     request = '{"GatewayID":"1","Messagetype":"request"}' # the request to the server
-#     # result = util.sendRequest()
-#
-#     lora = LoRa(mode=LoRa.LORA)
-#     lora_sock = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
-#     lora_sock.setblocking(False)
-#
-#
-#     # result_dict = json.dumps(result)
-#     # date_time = result_dict['DateTime'] # Get the time from the server
-#     # device_list = result_dict['DeviceList'] # Get the device list from the server
-#
-#     # node_handler = threading.Thread(target=handle_lora_reveive(), args=(device_list, date_time,))
-#     # node_handler.start()
-#
-#     while True:
-#         data = lora_sock.recv(64)
-#         time.sleep(5)
-#         # util.storeData(data)
-#         print(data)
-#
-#     #     COUNT = COUNT + 1
-#     #     recv_pkg = lora_sock.recv(1024)
-#     #
-#     #
-#     #     if COUNT==9:
-#     #         file_name = str(date_time,sn)
-#     #         sn = sn + 1
-#     #         save_handler = threading.Thread(target=handle_save(), args=(buf, file_name,))
-#     #         save_handler.start()
-#     #
 from network import LoRa
 import socket
 import time

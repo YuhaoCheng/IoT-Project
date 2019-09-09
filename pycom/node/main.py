@@ -139,18 +139,3 @@ if __name__ == '__main__':
             a = 1
         print('the value of changebuf is' + str(changebuf[0]) +','+ str(changebuf[1]) +','+ str(changebuf[2]) +','+ '\n')
     # if the server receive
-
-# from network import LoRa
-# import socket
-# import time
-# import util
-#
-# lora = LoRa(mode=LoRa.LORA, region=LoRa.AS923)
-# s = socket.socket(socket.AF_LORA, socket.SOCK_RAW)
-# s.setblocking(True)
-# while True:
-#     s.send('Ping')
-#     print('Send data')
-#     data = s.recv(64)
-#     print('Recv the data', data)
-#     time.sleep(5)
